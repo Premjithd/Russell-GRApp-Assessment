@@ -9,7 +9,7 @@ namespace GR.Controller
 {
     public class BaseClass : IBaseClass
     {
-        public  List<Item> _items;
+        private  List<Item> _items;
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public BaseClass(List<Item> items)
         {

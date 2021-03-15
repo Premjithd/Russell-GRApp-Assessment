@@ -8,9 +8,24 @@ namespace GR.Tests
     public class TestAssemblyTests
     {
         private readonly IBaseClass _app;
+        private List<Item> Items;
         public TestAssemblyTests()
         {
-            var Items = new List<Item>
+            if (_app == null)
+                _app = new BaseClass(ValueBeforeInventoryUpdate());
+
+              Items = _app.UpdateInventory();
+        }
+
+        public List<Item> ValueAfterInventoryUpdate()
+        {
+            return Items;
+        }
+
+        public List<Item> ValueBeforeInventoryUpdate()
+        {
+            return 
+                new List<Item>
                 {
                     new Item {Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20},
                     new Item {Name = "Aged Brie", SellIn = 2, Quality = 1},
@@ -54,18 +69,6 @@ namespace GR.Tests
                     },
                     new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
                 };
-
-            if (_app == null)
-                _app = new BaseClass(Items);
-
-            
         }
-
-        public List<Item> TestResult()
-        {
-            return _app.UpdateInventory();
-        }
-
-
     }
 }

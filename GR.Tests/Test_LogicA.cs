@@ -9,22 +9,28 @@ namespace GR.Tests
 {
     public class Test_LogicA
     {
-        private List<Item> result;
+        private List<Item> afterUpdate;
+        private List<Item> beforeUpdate;
         public Test_LogicA()
         {
             var app = new TestAssemblyTests();
-            result = app.TestResult();
+            afterUpdate = app.ValueAfterInventoryUpdate();
+            beforeUpdate = app.ValueBeforeInventoryUpdate();
         }
         [Fact]
         public void AgedBrie_SellIn_ShouldDecreaseByOne()
         {
-            Assert.Equal(1, result.First(x => x.Name == "Aged Brie").SellIn);
+            var originalValue = beforeUpdate.First(x => x.Name == "Aged Brie").SellIn;
+            var updatedValue = afterUpdate.First(x => x.Name == "Aged Brie").SellIn;
+            Assert.Equal(originalValue -1, updatedValue);
         }
 
         [Fact]
-        public void AgedBrie_Quality_ShouldDecreaseByOne()
+        public void AgedBrie_Quality_ShouldIncreaseByOne()
         {
-            Assert.Equal(2, result.First(x => x.Name == "Aged Brie").Quality);
+            var originalValue = beforeUpdate.First(x => x.Name == "Aged Brie").Quality;
+            var updatedValue = afterUpdate.First(x => x.Name == "Aged Brie").Quality;
+            Assert.Equal(originalValue + 1, updatedValue);
         }
     }
 }
